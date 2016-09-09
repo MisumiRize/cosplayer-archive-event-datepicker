@@ -1,9 +1,10 @@
+import {EventEmitter} from 'events'
 import Kefir from 'kefir'
 import moment from 'moment'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Calendar from './calendar'
+import App from './app'
 
 const wrapper = document.createElement('div')
 wrapper.className = 'datepicker--wrapper'
@@ -25,21 +26,28 @@ function navigateToDay(day) {
   }
 }
 
-const currentDay = Kefir.fromEvents(window, 'scroll', () => {
-  return window.pageYOffset
-})
-  .map(y => {
-    return days.find((d, i) => {
-      if (i == days.length - 1) {
-        return true
-      }
-      const bottom = window.innerHeight + y
-      return d.y <= bottom && days[i + 1].y > bottom
-    })
+function findDay(y) {
+  return days.find((d, i) => {
+    if (i == days.length - 1) {
+      return true
+    }
+    const bottom = window.innerHeight + y
+    return d.y <= bottom && days[i + 1].y > bottom
   })
+}
+
+const emitter = new EventEmitter()
+const fromRequest = Kefir.fromEvents(emitter, 'request', () => {
+  return findDay(window.pageYOffset).day
+})
+const fromScroll = Kefir.fromEvents(window, 'scroll', () => window.pageYOffset)
+  .map(findDay)
   .skipDuplicates()
   .map(d => d.day)
+const currentDay = Kefir.merge([fromRequest, fromScroll])
 
-ReactDOM.render(<Calendar
+ReactDOM.render(<App
+  emitter={emitter}
   currentDay={currentDay}
-  onSelect={navigateToDay} />, wrapper)
+  onSelectDay={navigateToDay}
+/>, wrapper)

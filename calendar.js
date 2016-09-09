@@ -5,21 +5,32 @@ import React from 'react'
 export default class Calendar extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {value: moment()}
+    this.state = {day: moment()}
+    this._setDay = this._setDay.bind(this)
   }
 
   componentDidMount() {
-    this.props.currentDay.onValue(d => this.setState({value: d}))
+    this.props.currentDay.onValue(this._setDay)
+    this.props.emitter.emit('request')
+  }
+
+  componentWillUnmount() {
+    this.props.currentDay.offValue(this._setDay)
+  }
+
+  _setDay(d) {
+    this.setState({day: d})
   }
 
   render() {
     return <RCCalendar
-      value={this.state.value}
-      onSelect={this.props.onSelect} />
+      value={this.state.day}
+      onSelect={this.props.onSelectDay} />
   }
 }
 
 Calendar.propTypes = {
-  currentDay: React.PropTypes.object,
-  onSelect: React.PropTypes.func
+  emitter: React.PropTypes.object.isRequired,
+  currentDay: React.PropTypes.object.isRequired,
+  onSelectDay: React.PropTypes.func.isRequired
 }
