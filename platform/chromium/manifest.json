@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "archive-event-datepicker",
+  "version": "0.0.0.1",
+
+  "content_scripts": [
+    {
+      "matches": ["http://cosp.jp/event_list.aspx"],
+      "css": ["index.css"]
+    },
+    {
+      "matches": ["http://cosp.jp/event_list.aspx"],
+      "js": ["bundle.js"],
+      "run_at": "document_end"
+    }
+  ]
+}

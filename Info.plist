@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Builder Version</key>
-	<string>11601.7.7</string>
+	<string>11601.7.8</string>
 	<key>CFBundleDisplayName</key>
 	<string>archive-event-datepicker</string>
 	<key>CFBundleIdentifier</key>

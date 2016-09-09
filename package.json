@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:js": "browserify . -t babelify -o bundle.js",
-    "build:css": "node-sass index.scss -o .",
-    "build": "npm run build:js && npm run build:css"
+    "build:safari:js": "browserify . -t baberify -o bundle.js",
+    "build:safari:css": "node-sass index.scss -o .",
+    "build:safari": "npm run build:safari:js && npm run build:safari:css",
+    "build:chromium:js": "browserify . -t babelify -o platform/chromium/bundle.js",
+    "build:chromium:css": "node-sass index.scss -o platform/chromium",
+    "build:chromium": "npm run build:chromium:js && npm run build:chromium:css"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +19,7 @@
     "babel-preset-react": "^6.11.1",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
+    "kefir": "^3.5.1",
     "moment": "^2.14.1",
     "node-sass": "^3.9.3",
     "rc-calendar": "^7.0.4",
