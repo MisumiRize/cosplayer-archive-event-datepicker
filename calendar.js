@@ -22,10 +22,21 @@ export default class Calendar extends React.Component {
     this.setState({day: d})
   }
 
+  _handleSelect(day) {
+    this.props.onSelectDay(day)
+    this.setState({day})
+  }
+
+  _handleChange(day) {
+    this.setState({day})
+  }
+
   render() {
     return <RCCalendar
       value={this.state.day}
-      onSelect={this.props.onSelectDay} />
+      onSelect={this._handleSelect.bind(this)}
+      onChange={this._handleChange.bind(this)}
+    />
   }
 }
 

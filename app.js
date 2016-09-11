@@ -5,7 +5,7 @@ import Calendar from './calendar'
 export default class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {showCalendar: false}
+    this.state = {showCalendar: true}
   }
 
   render() {
@@ -27,7 +27,7 @@ export default class App extends React.Component {
           onChange={this._handleChange.bind(this)}
         />
         <label htmlFor="calendar-toggle">
-          Show/hide calendar
+          カレンダーを表示
         </label>
         {calendar}
       </div>
