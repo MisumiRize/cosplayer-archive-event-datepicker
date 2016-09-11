@@ -31,5 +31,5 @@ node_modules
 # Debug log from npm
 npm-debug.log
 
-bundle.js
 index.css
+platform/*/*.js

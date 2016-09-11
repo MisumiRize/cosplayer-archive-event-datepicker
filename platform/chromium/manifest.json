@@ -5,12 +5,26 @@
 
   "content_scripts": [
     {
-      "matches": ["http://cosp.jp/event_list.aspx"],
+      "matches": [
+        "http://cosp.jp/event_list.aspx*",
+        "http://*.cosp.jp/event_list.aspx*"
+      ],
       "css": ["index.css"]
     },
     {
-      "matches": ["http://cosp.jp/event_list.aspx"],
-      "js": ["bundle.js"],
+      "matches": [
+        "http://cosp.jp/event_list.aspx*",
+        "http://*.cosp.jp/event_list.aspx*"
+      ],
+      "js": ["start.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "http://cosp.jp/event_list.aspx*",
+        "http://*.cosp.jp/event_list.aspx*"
+      ],
+      "js": ["end.js"],
       "run_at": "document_end"
     }
   ]
