@@ -1,15 +1,12 @@
 {
-  "name": "archive-event-datepicker",
+  "name": "cosplayer-archive-event-datepicker",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build:safari:js": "browserify . -t baberify -o bundle.js",
-    "build:safari:css": "node-sass index.scss -o .",
-    "build:safari": "npm run build:safari:js && npm run build:safari:css"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Rize MISUMI",
+  "license": "MIT",
   "devDependencies": {
     "babel-preset-latest": "^6.14.0",
     "babel-preset-react": "^6.11.1",

@@ -5,34 +5,39 @@ import sass from 'gulp-sass'
 import gutil from 'gulp-util'
 import source from 'vinyl-source-stream'
 
-const platforms = ['chromium']
+const platforms = [
+  ['safari', 'safari.safariextension'],
+  ['chromium', 'chromium']
+]
 const entries = ['start', 'end']
 
-entries.forEach((entry) => {
-  gulp.task(`build:js:${entry}`, () => {
-    browserify({entries: `${entry}.js`})
-      .transform('babelify')
-      .transform('envify')
-      .bundle()
-      .on('error', (e) => {
-        gutil.log(`${e.name}: ${e.message}`)
-      })
-      .pipe(source(`${entry}.js`))
-      .pipe(gulp.dest('platform/chromium'))
+new Map(platforms).forEach((dir, platform) => {
+  entries.forEach(entry => {
+    gulp.task(`build:${platform}:js:${entry}`, () => {
+      browserify({entries: `${entry}.js`})
+        .transform('babelify')
+        .transform('envify')
+        .bundle()
+        .on('error', (e) => {
+          gutil.log(`${e.name}: ${e.message}`)
+        })
+        .pipe(source(`${entry}.js`))
+        .pipe(gulp.dest(`platform/${dir}`))
+    })
   })
-})
-
-const jsTasks = entries.map(e => `build:js:${e}`)
-gulp.task('build:js', jsTasks)
-
-gulp.task('build:css', () => {
-  gulp.src('index.scss')
-    .pipe(plumber())
-    .pipe(sass())
-    .pipe(gulp.dest('platform/chromium/index.css'))
-})
-
-gulp.task('watch', () => {
-  gulp.watch('*.js', ['build:js'])
-  gulp.watch('index.scss', ['build:css'])
+  
+  const jsTasks = entries.map(e => `build:${platform}:js:${e}`)
+  gulp.task(`build:${platform}:js`, jsTasks)
+  
+  gulp.task(`build:${platform}:css`, () => {
+    gulp.src('index.scss')
+      .pipe(plumber())
+      .pipe(sass())
+      .pipe(gulp.dest(`platform/${dir}`))
+  })
+  
+  gulp.task(`watch:${platform}`, () => {
+    gulp.watch('*.js', [`build:${platform}:js`])
+    gulp.watch('index.scss', [`build:${platform}:css`])
+  })
 })
