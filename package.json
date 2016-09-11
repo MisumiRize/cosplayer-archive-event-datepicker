@@ -15,6 +15,7 @@
     "babel-preset-react": "^6.11.1",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
+    "envify": "^3.4.1",
     "gulp-plumber": "^1.1.0",
     "gulp-sass": "^2.3.2",
     "kefir": "^3.5.1",

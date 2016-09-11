@@ -32,7 +32,9 @@ export default class Calendar extends React.Component {
   }
 
   render() {
+    const showDateInput = (process.env.DEBUG == '1') ? true : false
     return <RCCalendar
+      showDateInput={showDateInput}
       value={this.state.day}
       onSelect={this._handleSelect.bind(this)}
       onChange={this._handleChange.bind(this)}
